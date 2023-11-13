@@ -169,6 +169,20 @@ function whatDayIsIt() {
 /* ESERCIZIO 9
   Scrivi una funzione chiamata "howManyDays" che riceve una data come parametro e ritorna il numero di giorni trascorsi da tale data.
 */
+function howManyDays(day){
+  let date = Date.parse(day);
+  // console.log(date);
+  let now = new Date();
+  let nowEpoch = now.getTime();
+  // console.log(nowEpoch);
+  let msTot = Math.abs(nowEpoch - date);
+  // console.log(msTot);
+  let days = Math.floor(msTot / 1000 / 60 / 60 / 24); 
+  // console.log(days);
+  return days;
+}
+
+console.log(howManyDays('2020-11-13'));
 
 /* ESERCIZIO 10
   Scrivi una funzione chiamata "isTodayMyBirthday" che deve ritornare true se oggi è il tuo compleanno, falso negli altri casi.
@@ -194,53 +208,74 @@ console.log("Oggi è il mio compleanno?", isTodayMyBirthday());
 /* ESERCIZIO 12
   Scrivi una funzione chiamata "newestMovie" che trova il film più recente nell'array "movies" fornito.
 */
-function newestMovie(list){
-  let newestYear = Number(list[0].Year);
-  let newestTitle = list[0].Title;
+function newestMovie() {
 
-  list.forEach(element => {
-    if(Number(element.Year) > newestYear){
-      newestYear = Number(element.Year);
-      newestTitle = element.Title;
-    }
-  });
-  //console.log(newestYear);
- // console.log(newestTitle);
-  return newestTitle;
+  let arr = [];
+  movies.forEach(val => arr.push(val.Year));
+  arr.sort();
+  console.log(arr[arr.length-1]);
 }
+
+newestMovie();
 /* ESERCIZIO 13
   Scrivi una funzione chiamata countMovies che ritorna il numero di film contenuti nell'array "movies" fornito.
 */
+function countMovies(movies) {
+  return movies.length;
+ }
 
 /* ESERCIZIO 14
   Scrivi una funzione chiamata "onlyTheYears" che crea un array con solamente gli anni di uscita dei film contenuti nell'array "movies" fornito.
 */
-
+function onlyTheYears() {
+  const anni = movies.map(movie => movie.Year);
+  return anni;
+ }
+ 
 /* ESERCIZIO 15
   Scrivi una funzione chiamata "onlyInLastMillennium" che ritorna solamente i film prodotto nel millennio scorso contenuti nell'array "movies" fornito.
 */
-
+function onlyInLastMillennium() {
+  const filmRecenti = movies.filter(movie => movie.Year >= '2000');
+  return filmRecenti;
+ }
+ 
 /* ESERCIZIO 16
   Scrivi una funzione chiamata "sumAllTheYears" che ritorna la somma di tutti gli anni in cui sono stati prodotti i film contenuti nell'array "movies" fornito.
 */
+function sumAllTheYears(arr){
+  let sum = 0
+  for(let i = 0; i<arr.length;i++){
+   sum += Number(arr[i].Year)
+  }
+  return sum
+}
+console.log(sumAllTheYears(movies));
 
 /* ESERCIZIO 17
   Scrivi una funzione chiamata "searchByTitle" che riceve una stringa come parametro e ritorna i film nell'array "movies" fornito che la contengono nel titolo.
 */
-let searchByTitle = (list, str) => {
-  let result = [];
-  list.forEach((movie) => {
-    if (movie.Title.toLowerCase().includes(str.toLowerCase())) {
-      result.push(movie.Title);
-    }
-  });
-  return result;
-};
+
 /* ESERCIZIO 18
   Scrivi una funzione chiamata "searchAndDivide" che riceve una stringa come parametro e ritorna un oggetto contenente due array: "match" e "unmatch".
   "match" deve includere tutti i film dell'array "movies" fornito che contengono la stringa fornita all'interno del proprio titolo, mentre "unmatch" deve includere tutti i rimanenti.
 */
+function searchAndDivide(str) {
+  let obj1 = {
+    match: [],
+    unmatch: [],
+  }
+  movies.forEach((film) => {
+    if (film.Title.toLowerCase().includes(str.toLowerCase())) {
+      obj1.match.push(film.Title);
+    } else {
+      obj1.unmatch.push(film.Title);
+    }
+  });
+  return obj1;
+}
 
+console.log(searchAndDivide("Avengers"));
 /* ESERCIZIO 19
   Scrivi una funzione chiamata "removeIndex" che riceve un numero come parametro e ritorna l'array "movies" fornito privo dell'elemento nella posizione ricevuta come parametro.
 */
@@ -277,7 +312,7 @@ function stampaTestoTd() {
 function aggiungiBackgroundRossoLink() {
   const link = document.getElementsByTagName("a");
   for (let i = 0; i < link.length; i++) {
-  link[i].style.backgroundColor = "red";
+  link[i].style.backgroundColor = 'red';
   }
  }
  
